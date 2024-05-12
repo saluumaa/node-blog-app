@@ -6,9 +6,8 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('')
 
   const handleSubmit = async (e) => {
-    console.log(e)
     e.preventDefault()
-    try { 
+    try {  
     const response = await fetch('http://localhost:3001/register', {
       method: 'POST',
       headers: {
