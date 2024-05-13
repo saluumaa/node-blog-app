@@ -1,12 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Post from '../components/Post'
 
 const indexPage = () => {
+  //eslint-disable-next-line
+  const [posts, setPosts] = useState([])
+  
+  //eslint-disable-next-line
+  useEffect(() => {
+    const getPosts = async () => {
+      const response = await fetch('http://localhost:3001/posts')
+      const posts = await response.json()
+      setPosts(posts)
+      
+    }
+    getPosts()
+  }, [])
+
   return (
     <div>
-        <Post />
-        <Post />
-        <Post />
+       {
+        posts.length > 0 &&  posts.map(post => (
+            <Post {...post} key={post._id}/>
+          ))
+       }
     </div>
   )
 }

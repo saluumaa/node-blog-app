@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../context/userContext'
 
 const Header = () => {
-  const [user, setUser] = useState(null)
+  const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
     // const token = localStorage.getItem('token')
     // if (token) {
@@ -13,20 +14,30 @@ const Header = () => {
     const response = fetch('http://localhost:3001/me', {
       method: 'GET',
       credentials: 'include'
-    }).then(response => response.json().then(data => {
-      if (data.username) {
-        setUser(data.username)
-      }
+    }).then(response => response.json().then(userInfo => {
+      setUserInfo(userInfo)
     }))
   }, [])
+
+  const logOut = () => {
+    fetch('http://localhost:3001/logout', {
+      method: 'POST',
+      credentials: 'include'
+    }).then(() => {
+      setUserInfo(null)
+    })
+  }
+
+  const username = userInfo?.username
+
   return (
     <header>
     <Link to="/" className='logo'>My Blog</Link>
     <nav>
-      {user ? (
+      {username ? (
         <>
         <Link to='/create'>Create Post</Link>     
-        <Link to='/logout'>Logout</Link>
+        <a onClick={logOut}>Logout</a>
         </>
       ) : (
         <>
@@ -38,5 +49,6 @@ const Header = () => {
   </header>
   )
 }
+
 
 export default Header

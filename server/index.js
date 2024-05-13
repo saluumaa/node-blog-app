@@ -5,6 +5,10 @@ const UserModel = require('./models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/' });
+const fs = require('fs');
+const PostModel = require('./models/Post');
 
 const app = express();
 
@@ -48,7 +52,12 @@ app.post('/login', async(req, res) => {
             if (err) {
                 res.status(400).send('Invalid credentials');
             }
-            res.cookie('token', token).json('Logged in successfully')
+            res.cookie('token', token).json(
+            {
+                id: user._id,
+                username: user.username,
+            }
+            )
         })
 
     } else {
@@ -69,10 +78,41 @@ app.get('/me', (req, res) => {
 
 
  
-app.get('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
     res.clearCookie('token').send('Logged out successfully');
 });
 
+app.post('/posts', uploadMiddleware.single('file'), async(req, res) => {
+  const path = req.file.path;
+const originalname = req.file.originalname;
+  const parts = originalname.split('.');
+  const ext = parts[parts.length - 1];
+  const newPath = path + '.' + ext;
+  fs.renameSync(path, newPath);
+
+  const { title, summary, content } = req.body;
+//   const post = new PostModel({
+//       title: req.body.title,
+//       summary: req.body.summary,
+//       content: req.body.content,
+//       image: path + '.' + ext,
+//   });
+
+   const post = await PostModel.create({
+        title, 
+        summary, 
+        content, 
+        image: newPath,
+    });
+
+  res.json(post);
+
+});
+
+app.get('/posts', async(req, res) => {
+    const posts = await PostModel.find();
+    res.json(posts);
+});
 
 
 app.listen(3001, () => {

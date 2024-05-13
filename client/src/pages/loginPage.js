@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { UserContext } from '../context/userContext'
 const loginPage = () => {
   //eslint-disable-next-line
   const [username, setUsername] = useState('');
   //eslint-disable-next-line
   const [password, setPassword] = useState('');
+  //eslint-disable-next-line
+  const {setUserInfo} = useContext(UserContext);
   //eslint-disable-next-line
   const navigate = useNavigate();
   const login = async (e) => {
@@ -18,7 +20,10 @@ const loginPage = () => {
       credentials: 'include'
     })
     if (response.ok) {
+      response.json().then(userInfo => {
+        setUserInfo(userInfo)
       navigate('/')
+      });
     } else {
       console.log('Login failed')
     }

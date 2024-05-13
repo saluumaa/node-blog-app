@@ -103,6 +103,6 @@ button {
   font-size: 1rem;
 }
 
-form h1{
+form.login h1, form.register h1{
   text-align: center;
 }
