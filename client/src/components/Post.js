@@ -2,16 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { formatISO9075 } from 'date-fns'
 
-const Post = ({title, image, content, summary, createdAt}) => {
+const Post = ({_id,title, image,summary, createdAt, author}) => {
   return (
     <div className='post'>
     <div className='image'>
-    <img src={image} alt='blog' />
+      <Link to={`/post/${_id}`}> 
+        <img src={ 'http://localhost:3001/' + image.replace('public', '')} alt='blog' />
+      </Link>
     </div>
     <div className='texts'>
-    <h2>{title}</h2>
+    <Link to={`/post/${_id}`}> 
+      <h2>{title}</h2>
+    </Link>
     <p className='info'>
-      <Link className='author' to=''>John Doe</Link>
+      <a className='author' to=''>{author?.username}</a>
       <time>
        {formatISO9075(new Date(createdAt),)}
       </time>

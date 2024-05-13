@@ -58,6 +58,19 @@ header nav {
   font-size: 1.8rem;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.post .texts a {
+  color: #333;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .post p.info {
   margin: 5px 0;
   font-size: 0.9rem;

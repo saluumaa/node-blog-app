@@ -22,6 +22,7 @@ app.use(cors(
 ));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 mongoose.connect('mongodb+srv://salma:sacaada143@cluster0.trkkkbi.mongodb.net/test?retryWrites=true&w=majority');
 
@@ -55,7 +56,8 @@ app.post('/login', async(req, res) => {
             res.cookie('token', token).json(
             {
                 id: user._id,
-                username: user.username,
+                // username: user.username,
+                username,
             }
             )
         })
@@ -90,28 +92,41 @@ const originalname = req.file.originalname;
   const newPath = path + '.' + ext;
   fs.renameSync(path, newPath);
 
-  const { title, summary, content } = req.body;
-//   const post = new PostModel({
-//       title: req.body.title,
-//       summary: req.body.summary,
-//       content: req.body.content,
-//       image: path + '.' + ext,
-//   });
-
-   const post = await PostModel.create({
-        title, 
-        summary, 
-        content, 
-        image: newPath,
+  const token = req.cookies.token;
+  jwt.verify(token, secret, async(err, decoded) => {
+    if (err) {
+        res.status(400).send('Invalid token');
+    }
+    const { title, summary, content } = req.body;
+    const post = await PostModel.create({
+            title, 
+            summary, 
+            content, 
+            image: newPath,
+            author: decoded.id,
+         });
+     
+       res.json(post);
     });
-
-  res.json(post);
+ 
 
 });
 
 app.get('/posts', async(req, res) => {
-    const posts = await PostModel.find();
-    res.json(posts);
+    const posts = await PostModel.find()
+    .populate('author', ['username'])
+    .sort({createdAt: -1})
+    .limit(25);
+    res.json(posts)
+    
+});
+
+app.get('/post/:id', async(req, res) => {
+    console.log(req.params);
+    res.json(req.params);
+    // const post = await PostModel.findById(id)
+    // .populate('author', ['username']);
+    // res.json(post);
 });
 
 
