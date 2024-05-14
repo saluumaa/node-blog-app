@@ -50,12 +50,14 @@ app.post('/login', async(req, res) => {
     const correctPas= bcrypt.compareSync(password, user.password);
     if (correctPas) {
         const token = jwt.sign({username, id: user._id}, secret, {}, (err,token ) =>{
+            
             if (err) {
                 res.status(400).send('Invalid credentials');
             }
             res.cookie('token', token).json(
             {
                 id: user._id,
+              
                 // username: user.username,
                 username,
             }
@@ -122,13 +124,48 @@ app.get('/posts', async(req, res) => {
 });
 
 app.get('/post/:id', async(req, res) => {
-    console.log(req.params);
-    res.json(req.params);
-    // const post = await PostModel.findById(id)
-    // .populate('author', ['username']);
-    // res.json(post);
+   try{
+    const post = await PostModel.findById(req.params.id)
+    .populate('author', ['username']);
+    res.json(post);
+   }
+    catch (error) {
+         res.status(404).send('Post not found');
+    }
 });
 
+app.put('/posts', uploadMiddleware.single('file'), async(req, res) => {
+    let newPath = null;
+    if(req.file) {
+        const path = req.file.path;
+        const originalname = req.file.originalname;
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+    }
+
+    const token = req.cookies.token;
+    jwt.verify(token, secret, async(err, decoded) => {
+        if (err) {
+            res.status(400).send('Invalid token');
+        }
+        const {id, title, summary, content } = req.body;
+        const postDoc = await PostModel.findById(id);
+        const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(decoded.id);
+        
+        if (!isAuthor) {
+            res.status(403).send('You are not the author of this post');
+        }
+        await postDoc.updateOne({
+            title, 
+            summary, 
+            content, 
+            image: newPath? newPath: postDoc.image,
+        });
+        res.json(postDoc);
+    });
+});
 
 app.listen(3001, () => {
     console.log('server is running on port 3001');
