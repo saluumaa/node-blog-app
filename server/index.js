@@ -158,17 +158,31 @@ app.put('/posts', uploadMiddleware.single('file'), async(req, res) => {
             res.status(403).send('You are not the author of this post');
         }
         await postDoc.updateOne({
-            title, 
-            summary, 
-            content, 
+            title: title? title: postDoc.title,
+            summary: summary? summary: postDoc.summary,
+            content: content? content: postDoc.content,
             image: newPath? newPath: postDoc.image,
         });
         res.json(postDoc);
     });
 });
 
+app.delete('/post/:id', async(req, res) => {
+    const token = req.cookies.token;
+    jwt.verify(token, secret, async(err, decoded) => {
+        if (err) {
+            res.status(400).send('Invalid token');
+        }
+        const post = await PostModel.findById(req.params.id);
+        const isAuthor = JSON.stringify(post.author) === JSON.stringify(decoded.id);
+        if (!isAuthor) {
+            res.status(403).send('You are not the author of this post');
+        }
+        await post.deleteOne();
+        res.json(post);
+    });
+});
+
 app.listen(3001, () => {
     console.log('server is running on port 3001');
  });
-
- // mongodb+srv://salma:sacaada143@cluster0.trkkkbi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

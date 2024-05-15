@@ -37,7 +37,10 @@ header a {
 header a.logo {
   font-weight: bold;
   font-size: 1.5rem;
-
+  background-color: aquamarine;
+  padding: 10px 15px;
+  border-radius: 50%;
+  border: 1px solid aqua;
 }
 
 header nav {
@@ -173,7 +176,22 @@ form.login h1, form.register h1{
   margin-bottom: 20px;
 }
 
-.post-page a.edit-btn {
+.edit-del-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+}
+
+.logout {
+  background-color: aquamarine;
+  border-radius: 50%;
+  padding: 10px;
+  margin-top: -8px;
+  font-weight: 400;
+}
+
+.post-page a.edit-btn, .delete button {
   background-color: #555;
   display: inline-flex;
   align-items: center;
@@ -184,6 +202,13 @@ form.login h1, form.register h1{
   padding: 15px 30px; ;
 }
 
-a svg {
+.delete button {
+  background-color: #f00;
+  padding: 15px 20px;
+} 
+
+
+
+svg {
   height: 20px;
 }

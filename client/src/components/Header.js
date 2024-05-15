@@ -32,12 +32,15 @@ const Header = () => {
 
   return (
     <header>
-    <Link to="/" className='logo'>My Blog</Link>
+    <Link to="/" className='logo'>Saluma's Blog</Link>
     <nav>
       {username ? (
         <>
-        <Link to='/create'>Create Post</Link>     
-        <a onClick={logOut}>Logout</a>
+        <Link to='/create'  style={{marginRight: '10px'}} >Create Post</Link>    
+        <a className='logout' onClick={logOut}>
+        <span
+        >{username}</span> 
+          Logout</a>
         </>
       ) : (
         <>
