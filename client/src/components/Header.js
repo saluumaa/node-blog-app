@@ -37,10 +37,7 @@ const Header = () => {
       {username ? (
         <>
         <Link to='/create'  style={{marginRight: '10px'}} >Create Post</Link>    
-        <a className='logout' onClick={logOut}>
-        <span
-        >{username}</span> 
-          Logout</a>
+        <a className='logout' onClick={logOut}>Logout</a>
         </>
       ) : (
         <>
