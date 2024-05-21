@@ -16,10 +16,11 @@ const modules = {
 
 const Editor = ({value, onChange}) => {
   return (
-    <ReactQuill value={value}
-            theme='snow'
-            onChange={onChange}
-             modules={modules}  />
+    < ReactQuill value={value}
+          theme='snow'
+          onChange={onChange}
+          modules={modules}  
+        />
   )
 }
 

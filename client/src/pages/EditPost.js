@@ -32,7 +32,7 @@ const EditPost = () => {
         })
         console.log(await response.json())
         if(response.ok) {
-           navigate('/post/'+id)
+           navigate('/posts/'+id)
         }else {
             console.log('Failed to update post')
         }

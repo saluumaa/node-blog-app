@@ -1,14 +1,16 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {  
-    const response = await fetch('http://localhost:3001/register', {
+    const response = await fetch('http://localhost:3001/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -21,6 +23,7 @@ const RegisterPage = () => {
   } catch (error) {
     console.log(error)
   }
+  navigate('/login')
 
   }
 

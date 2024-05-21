@@ -5,8 +5,8 @@ import { formatISO9075 } from 'date-fns'
 const Post = ({_id,title, image,summary, createdAt, author}) => {
   return (
     <div className='post'>
-    <div className='image'>
-      <Link to={`/post/${_id}`}> 
+    <div className='image index-image'>
+      <Link to={`/posts/${_id}`}> 
         <img src={ 'http://localhost:3001/' + image.replace('public', '')} alt='blog' />
       </Link>
     </div>

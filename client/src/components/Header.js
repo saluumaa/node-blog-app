@@ -5,13 +5,8 @@ import { UserContext } from '../context/userContext'
 const Header = () => {
   const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
-    // const token = localStorage.getItem('token')
-    // if (token) {
-    //   console.log('User is logged in')
-    // } else {
-    //   console.log('User is not logged in')
-    // }
-    const response = fetch('http://localhost:3001/me', {
+
+    const response = fetch('http://localhost:3001/users/me', {
       method: 'GET',
       credentials: 'include'
     }).then(response => response.json().then(userInfo => {
@@ -20,7 +15,7 @@ const Header = () => {
   }, [])
 
   const logOut = () => {
-    fetch('http://localhost:3001/logout', {
+    fetch('http://localhost:3001/users/logout', {
       method: 'POST',
       credentials: 'include'
     }).then(() => {
@@ -32,12 +27,15 @@ const Header = () => {
 
   return (
     <header>
-    <Link to="/" className='logo'>Saluma's Blog</Link>
+    
+    <Link to="/" className='logo'> 
+      Saluma's <br/>   Blog   
+    </Link>
     <nav>
       {username ? (
         <>
-        <Link to='/create'  style={{marginRight: '10px'}} >Create Post</Link>    
         <a className='logout' onClick={logOut}>Logout</a>
+        <Link className='new-post' to='/create' style={{marginLeft: '10px'}}>Create Post</Link>    
         </>
       ) : (
         <>
