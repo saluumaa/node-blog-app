@@ -10,7 +10,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {  
-    const response = await fetch('http://localhost:3001/users/register', {
+    const response = await fetch('https://blog-app-gw63.onrender.com/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

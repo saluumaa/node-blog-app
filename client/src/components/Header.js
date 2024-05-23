@@ -6,7 +6,7 @@ const Header = () => {
   const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
 
-    const response = fetch('http://localhost:3001/users/me', {
+    const response = fetch('https://blog-app-gw63.onrender.com/users/me', {
       method: 'GET',
       credentials: 'include'
     }).then(response => response.json().then(userInfo => {
@@ -15,7 +15,7 @@ const Header = () => {
   }, [])
 
   const logOut = () => {
-    fetch('http://localhost:3001/users/logout', {
+    fetch('https://blog-app-gw63.onrender.com/users/logout', {
       method: 'POST',
       credentials: 'include'
     }).then(() => {

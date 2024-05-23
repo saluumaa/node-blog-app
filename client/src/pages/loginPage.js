@@ -13,7 +13,7 @@ const loginPage = () => {
   const login = async (e) => {
     e.preventDefault()
     try {  
-    const response = await fetch('http://localhost:3001/users/login', {
+    const response = await fetch('https://blog-app-gw63.onrender.com/users/login', {
       method: 'POST',
       body: JSON.stringify({username, password}),
       headers: {'Content-Type': 'application/json'},

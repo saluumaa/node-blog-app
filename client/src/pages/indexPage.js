@@ -8,7 +8,7 @@ const indexPage = () => {
   //eslint-disable-next-line
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch('http://localhost:3001/posts')
+      const response = await fetch('https://blog-app-gw63.onrender.com/posts')
       const posts = await response.json()
       setPosts(posts)
       

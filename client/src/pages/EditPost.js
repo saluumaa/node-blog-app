@@ -25,7 +25,7 @@ const EditPost = () => {
             data.set('file', images?.[0])
         }
 
-        const response = await fetch('http://localhost:3001/posts', {
+        const response = await fetch('https://blog-app-gw63.onrender.com/posts', {
             method: 'PUT',
             body: data,
             credentials: 'include'

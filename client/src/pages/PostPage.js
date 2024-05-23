@@ -11,14 +11,14 @@ const PostPage = () => {
 
   useEffect(() => { 
       const stringId = id.toString(); 
-      fetch(`http://localhost:3001/posts/${stringId}`)
+      fetch(`https://blog-app-gw63.onrender.com/posts/${stringId}`)
           .then(response => response.json())
           .then(postInfo => setPostInfo(postInfo));
   }, [id]);
 
 
 const deletePost = async (id) => {
-  const response = await fetch(`http://localhost:3001/posts/${id}`, {
+  const response = await fetch(`https://blog-app-gw63.onrender.com/posts/${id}`, {
     method: 'DELETE',
     credentials: 'include'
 });
