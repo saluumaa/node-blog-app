@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context/userContext'
 
@@ -6,13 +6,13 @@ const Header = () => {
   const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
 
-    const response = fetch('https://blog-app-gw63.onrender.com/users/me', {
+    fetch('https://blog-app-gw63.onrender.com/users/me', {
       method: 'GET',
       credentials: 'include'
     }).then(response => response.json().then(userInfo => {
       setUserInfo(userInfo)
     }))
-  }, [])
+  }, [setUserInfo])
 
   const logOut = () => {
     fetch('https://blog-app-gw63.onrender.com/users/logout', {
