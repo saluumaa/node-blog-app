@@ -18,7 +18,7 @@ connectDB()
     });
 
 app.use(cors({
-    origin: 'hhttps://imaginative-dusk-5ee5e7.netlify.app', 
+    origin: 'https://imaginative-dusk-5ee5e7.netlify.app', 
     credentials: true,
 }));
 app.use(express.json());
