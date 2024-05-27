@@ -18,7 +18,7 @@ connectDB()
     });
 
 app.use(cors({
-    origin: 'http://localhost:3000', 
+    origin: 'https://66541cd6f9308b2ccf4605cd--imaginative-dusk-5ee5e7.netlify.app/', 
     credentials: true,
 }));
 app.use(express.json());
