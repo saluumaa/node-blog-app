@@ -1,13 +1,18 @@
 import React, { useContext, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context/userContext'
+import { getToken } from '../utils/tokenService'
 
 const Header = () => {
+  const token = getToken()
   const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
 
     fetch('https://blog-app-gw63.onrender.com/users/me', {
       method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
       credentials: 'include'
     }).then(response => response.json().then(userInfo => {
       setUserInfo(userInfo)

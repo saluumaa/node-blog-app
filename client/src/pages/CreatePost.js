@@ -1,6 +1,4 @@
 import { useState } from 'react'
-// import ReactQuill from 'react-quill'
-// import 'react-quill/dist/quill.snow.css'
 import { useNavigate } from 'react-router-dom'
 import Editor from '../components/Editor'
 

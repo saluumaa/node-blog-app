@@ -1,6 +1,8 @@
 import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/userContext'
+import { setToken } from '../utils/tokenService'
+
 const loginPage = () => {
   //eslint-disable-next-line
   const [username, setUsername] = useState('');
@@ -11,6 +13,7 @@ const loginPage = () => {
   //eslint-disable-next-line
   const navigate = useNavigate();
   const login = async (e) => {
+
     e.preventDefault()
     try {  
     const response = await fetch('https://blog-app-gw63.onrender.com/users/login', {
@@ -22,6 +25,7 @@ const loginPage = () => {
     if (response.ok) {
       response.json().then(userInfo => {
         setUserInfo(userInfo)
+        setToken(userInfo.token)
       navigate('/')
       });
     } else {

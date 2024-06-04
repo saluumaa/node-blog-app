@@ -14,6 +14,7 @@ const modules = {
     ],
 };
 
+
 const Editor = ({value, onChange}) => {
   return (
     < ReactQuill value={value}
