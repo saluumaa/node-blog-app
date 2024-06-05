@@ -64,7 +64,7 @@ if (!postInfo) {
       )
       }
         <div className='image'>
-        <img src={`http://localhost:3001/${postInfo.image}`} alt='blog' />
+        <img src={`https://blog-app-gw63.onrender.com/${postInfo.image}`} alt='blog' />
         </div>
         <div className='content' dangerouslySetInnerHTML={{__html: postInfo.content}}></div>
     </div>
