@@ -101,9 +101,8 @@ const loginUser = async (req, res) => {
         const correctPass = bcrypt.compareSync(password, user.password);
         if (correctPass) {
             const token = jwt.sign({ username, id: user._id }, secret, {
-                expiresIn: '24h',
+                expiresIn: '2h',
             });
-
             res.cookie('token', token, { httpOnly: true }).json({
                 id: user._id,
                 username,
@@ -126,4 +125,3 @@ const logoutUser = async (req, res) => {
 };
 
 module.exports = { registerUser, loginUser, currentUser, logoutUser };
-// Compare this snippet from server/models/Post.js:

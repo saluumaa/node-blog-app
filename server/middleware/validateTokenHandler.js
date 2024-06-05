@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const validateTokenHandler = (req, res, next) => {
     let token;
-    const authHeader = req.headers.authorization;
-
+    const authHeader = req.headers.authorization || req.headers.Authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
         token = authHeader.split(' ')[1];
     } else if (req.cookies.token) {

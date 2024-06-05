@@ -17,6 +17,7 @@ const loginPage = () => {
     e.preventDefault()
     try {  
     const response = await fetch('https://blog-app-gw63.onrender.com/users/login', {
+    // const response = await fetch('http://localhost:3001/users/login', {
       method: 'POST',
       body: JSON.stringify({username, password}),
       headers: {'Content-Type': 'application/json'},
@@ -24,8 +25,10 @@ const loginPage = () => {
     })
     if (response.ok) {
       response.json().then(userInfo => {
+        console.log(userInfo)
         setUserInfo(userInfo)
-        setToken(userInfo.token)
+        // setToken(userInfo.token)
+        // console.log(userInfo.token)
       navigate('/')
       });
     } else {

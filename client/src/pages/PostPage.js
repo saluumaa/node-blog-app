@@ -6,12 +6,14 @@ import { UserContext } from '../context/userContext'
 const PostPage = () => {
   const { id } = useParams(); 
   const [postInfo, setPostInfo] = useState(null);
+  
   const {userInfo} = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => { 
       const stringId = id.toString(); 
       fetch(`https://blog-app-gw63.onrender.com/posts/${stringId}`)
+      // fetch(`http://localhost:3001/posts/${stringId}`)
           .then(response => response.json())
           .then(postInfo => setPostInfo(postInfo));
   }, [id]);
@@ -19,6 +21,7 @@ const PostPage = () => {
 
 const deletePost = async (id) => {
   const response = await fetch(`https://blog-app-gw63.onrender.com/posts/${id}`, {
+  // const response = await fetch(`http://localhost:3001/posts/${id}`, {
     method: 'DELETE',
     credentials: 'include'
 });
@@ -38,7 +41,7 @@ if (!postInfo) {
     <div className='post-page'>
         <h1>{postInfo.title}</h1>
         <time>{formatISO9075(new Date(postInfo.createdAt), { representation: 'date' }) } </time>
-       <div className='author'>By {postInfo.author.username}</div>
+       <div className='author'>By {postInfo.author.username}</div> 
       {userInfo.id === postInfo.author._id && (
         <div className='edit-del-wrapper'>
         <div className='edit'>

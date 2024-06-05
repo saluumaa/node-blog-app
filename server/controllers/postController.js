@@ -22,12 +22,11 @@ const createPostHandler = async (req, res) => {
         fs.renameSync(path, newPath);
 
         const token = req.cookies.token;
-        console.log(token);
+        console.log(token)
         jwt.verify(token, secret, async (err, decoded) => {
             if (err) {
                 return res.status(400).send('Invalid token');
             }
-
             const { title, summary, content } = req.body;
             const post = await PostModel.create({
                 title,

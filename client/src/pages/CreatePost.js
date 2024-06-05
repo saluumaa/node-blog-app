@@ -19,6 +19,7 @@ const CreatePost = () => {
         data.set('content', content)
         data.set('file', images[0])
         const response = await fetch('https://blog-app-gw63.onrender.com/posts', {
+        // const response = await fetch('http://localhost:3001/posts', {
             method: 'POST',
             body: data,
             credentials: 'include'

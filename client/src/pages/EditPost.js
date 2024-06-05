@@ -25,7 +25,8 @@ const EditPost = () => {
             data.set('file', images?.[0])
         }
 
-        const response = await fetch('https://blog-app-gw63.onrender.com/posts', {
+        const response = await fetch(`https://blog-app-gw63.onrender.com/posts${id}`, {
+        // const response = await fetch(`http://localhost:3001/posts/${id}`, {
             method: 'PUT',
             body: data,
             credentials: 'include'
@@ -39,8 +40,9 @@ const EditPost = () => {
     }
 
     useEffect(() => {
-        const postId = id.toString
-        fetch(`http://localhost:3001/post/${postId}`)
+        // const postId = id.toString
+        fetch(`https://blog-app-gw63.onrender.com/posts/${id}`)
+        // fetch(`http://localhost:3001/posts/${id}`)
         .then(res => res.json()).then(data => {
             setTitle(data.title)
             setSummary(data.summary)

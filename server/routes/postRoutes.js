@@ -9,7 +9,7 @@ router.get('/:id', getPostById);
 
 router.use(validateToken);
 router.post('/', createPost);
-router.put('/', updatePosts);
+router.put('/:id', updatePosts);
 router.delete('/:id', deletePost);
 
 module.exports = router;

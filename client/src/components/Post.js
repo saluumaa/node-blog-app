@@ -8,6 +8,7 @@ const Post = ({_id,title, image,summary, createdAt, author}) => {
     <div className='image index-image'>
       <Link to={`/posts/${_id}`}> 
         <img src={ 'https://blog-app-gw63.onrender.com/' + image.replace('public', '')} alt='blog' />
+        {/* <img src={ 'http://localhost:3001/' + image.replace('public', '')} alt='blog' /> */}
       </Link>
     </div>
     <div className='texts'>

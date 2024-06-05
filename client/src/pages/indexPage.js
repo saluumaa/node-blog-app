@@ -9,6 +9,7 @@ const indexPage = () => {
   useEffect(() => {
     const getPosts = async () => {
       const response = await fetch('https://blog-app-gw63.onrender.com/posts')
+      // const response = await fetch('http://localhost:3001/posts')
       const posts = await response.json()
       setPosts(posts)
       

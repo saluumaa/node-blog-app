@@ -4,23 +4,28 @@ import { UserContext } from '../context/userContext'
 import { getToken } from '../utils/tokenService'
 
 const Header = () => {
-  const token = getToken()
+  // const token = getToken()
   const {setUserInfo, userInfo} = useContext(UserContext);
   useEffect(() => {
-
     fetch('https://blog-app-gw63.onrender.com/users/me', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      credentials: 'include'
-    }).then(response => response.json().then(userInfo => {
-      setUserInfo(userInfo)
-    }))
+      // fetch('http://localhost:3001/users/me', {
+        method: 'GET',
+        // headers: {
+        //   'Authorization': `Bearer ${token}`
+        // },
+        credentials: 'include'
+      }).then(response => {
+        return response.json();
+      }).then(userInfo => {
+        setUserInfo(userInfo)
+      }).catch(error => {
+        console.error(error);
+      });
   }, [setUserInfo])
 
   const logOut = () => {
     fetch('https://blog-app-gw63.onrender.com/users/logout', {
+    // fetch('http://localhost:3001/users/logout', {
       method: 'POST',
       credentials: 'include'
     }).then(() => {
