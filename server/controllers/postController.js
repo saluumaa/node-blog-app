@@ -2,12 +2,13 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
-const PostModel = require('../models/Post');
-// const cookieParser = require('cookie-parser');
+const PostModel = require('../models/Post.js');
+const cookieParser = require('cookie-parser');
 
 const secret = process.env.JWT_SECRET;
 const uploadMiddleware = multer({ dest: 'uploads/' });
 
+app.use(cookieParser());
 
 const createPostHandler = async (req, res) => {
     try {

@@ -24,8 +24,8 @@ const EditPost = () => {
         if(images?.[0]) {
             data.set('file', images?.[0])
         }
-        const postId = id.toString
-        const response = await fetch(`https://blog-app-gw63.onrender.com/posts${postId}`, {
+        // const postId = id.toString
+        const response = await fetch(`https://blog-app-gw63.onrender.com/posts/${id}`, {
             method: 'PUT',
             body: data,
             credentials: 'include'
@@ -39,8 +39,8 @@ const EditPost = () => {
     }
 
     useEffect(() => {
-        const postId = id.toString
-        fetch(`https://blog-app-gw63.onrender.com/posts/${postId}`)
+        // const postId = id.toString
+        fetch(`https://blog-app-gw63.onrender.com/posts/${id}`)
         // fetch(`http://localhost:3001/posts/${id}`)
         .then(res => res.json()).then(data => {
             setTitle(data.title)

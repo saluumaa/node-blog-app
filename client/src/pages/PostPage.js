@@ -63,9 +63,10 @@ if (!postInfo) {
         </div>
       )
       }
-        <div className='image'>
-        <img src={`https://blog-app-gw63.onrender.com/${postInfo.image}`} alt='blog' />
-        </div>
+       <div className='image'>
+         <img src={`https://blog-app-gw63.onrender.com/${postInfo.image}`} alt='blog' />
+       </div>
+
         <div className='content' dangerouslySetInnerHTML={{__html: postInfo.content}}></div>
     </div>
   )
