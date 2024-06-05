@@ -103,7 +103,7 @@ const loginUser = async (req, res) => {
             const token = jwt.sign({ username, id: user._id }, secret, {
                 expiresIn: '2h',
             });
-            res.cookie('token', token, { httpOnly: true }).json({
+            res.cookie('token', token, { httpOnly: true,  secure: true,  sameSite: 'none' }).json({
                 id: user._id,
                 username,
             });

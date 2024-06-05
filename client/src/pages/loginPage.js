@@ -27,8 +27,6 @@ const loginPage = () => {
       response.json().then(userInfo => {
         console.log(userInfo)
         setUserInfo(userInfo)
-        // setToken(userInfo.token)
-        // console.log(userInfo.token)
       navigate('/')
       });
     } else {

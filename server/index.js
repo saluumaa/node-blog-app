@@ -19,7 +19,6 @@ connectDB()
 
 app.use(cors({
     origin: 'https://imaginative-dusk-5ee5e7.netlify.app', 
-    // origin: 'http://localhost:3000',
     credentials: true,
 }));
 app.use(express.json());

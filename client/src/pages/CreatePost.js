@@ -32,6 +32,10 @@ const CreatePost = () => {
         }
     
     }
+
+    const handleChange = (e) => {
+        setImages(e.target.files)
+    }
  
   return (
     <form onSubmit={createNewPost}>
@@ -45,7 +49,7 @@ const CreatePost = () => {
         onChange={(e) => setSummary(e.target.value)}
           />
         <input type='file'
-            onChange={e => setImages(e.target.files)}
+            onChange={handleChange}
         />
        <Editor value={content} onChange={setContent} />
         <button style={{marginTop: '5px'}}

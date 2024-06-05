@@ -3,14 +3,11 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const PostModel = require('../models/Post');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 
 const secret = process.env.JWT_SECRET;
 const uploadMiddleware = multer({ dest: 'uploads/' });
 
-const app = express();
-app.use(cookieParser());
-// app.use('/uploads', express.static(__dirname + '/uploads'));
 
 const createPostHandler = async (req, res) => {
     try {
@@ -81,13 +78,22 @@ const updatePostHandler = async (req, res) => {
         const token = req.cookies.token;
         jwt.verify(token, secret, async (err, decoded) => {
             if (err) {
+                console.error('Token verification error:', err);
                 return res.status(400).send('Invalid token');
             }
 
             const { id, title, summary, content } = req.body;
-            const postDoc = await PostModel.findById(id);
-            const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(decoded.id);
+            if (!id) {
+                return res.status(400).send('Post ID is required');
+            }
 
+            const postDoc = await PostModel.findById(id);
+            if (!postDoc) {
+                console.error(`Post not found with ID: ${id}`);
+                return res.status(404).send('Post not found');
+            }
+
+            const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(decoded.id);
             if (!isAuthor) {
                 return res.status(403).send('You are not the author of this post');
             }
@@ -102,9 +108,11 @@ const updatePostHandler = async (req, res) => {
             res.json(postDoc);
         });
     } catch (error) {
+        console.error('Error updating post:', error);
         res.status(500).send('Server error');
     }
 };
+
 
 const deletePost = async (req, res) => {
     try {
